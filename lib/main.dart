@@ -9,275 +9,167 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProfileScreen(),
+      home: StatsScreen(),
     );
   }
 }
 
-class ProfileScreen extends StatelessWidget {
+class StatsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F6FA),
 
       appBar: AppBar(
-        title: Text("My Profile"),
+        title: Text("Stats"),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(Icons.arrow_back, color: Colors.black),
       ),
 
       body: SingleChildScrollView(
-        child: Column(
-          children: [
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-            SizedBox(height: 20),
-
-            /// MAIN CARD
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(color: Colors.black12, blurRadius: 10),
-                ],
-              ),
-
-              child: Column(
-                children: [
-
-                  /// PROFILE
-                  Stack(
-                    children: [
-                      Column(
+              /// TOP CARD
+              Center(
+                child: SizedBox(
+                  width: 350,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 4,
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Row(
                         children: [
-                          CircleAvatar(
-                            radius: 40,
-                            backgroundImage:  NetworkImage("https://i.pravatar.cc/150?img=5"),
-                          ),
-                          SizedBox(height: 10),
 
-                          Text(
-                            "Sathvika Reddy",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                          /// LEFT SIDE
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                Text("\$13580",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold)),
+
+                                Text("Available balance"),
+
+                                SizedBox(height: 10),
+
+                                Row(
+                                  children: [
+                                    Icon(Icons.arrow_upward,
+                                        color: Colors.red, size: 16),
+                                    SizedBox(width: 5),
+                                    Text("Spend"),
+                                  ],
+                                ),
+                                Text("\$3123"),
+
+                                SizedBox(height: 10),
+
+                                Row(
+                                  children: [
+                                    Icon(Icons.arrow_downward,
+                                        color: Colors.green, size: 16),
+                                    SizedBox(width: 5),
+                                    Text("Received"),
+                                  ],
+                                ),
+                                Text("\$4074"),
+                              ],
+                            ),
                           ),
 
-                          Text("Flutter Developer",
-                              style: TextStyle(color: Colors.grey)),
+                          /// RIGHT SIDE (Simple circle)
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                height: 110,
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue.shade100,
+                                ),
+                              ),
+                              Text("June"),
+                            ],
+                          ),
                         ],
                       ),
-
-                      Positioned(
-                        right: 0,
-                        child: Text("Edit",
-                            style: TextStyle(color: Colors.blue)),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: 20),
-
-                  /// CARDS TITLE
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Cards (2/3)",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Icon(Icons.add_circle_outline, color: Colors.blue),
-                    ],
-                  ),
-
-                  SizedBox(height: 15),
-
-                  /// CARD UI (FINAL)
-                  Container(
-                    height: 160,
-                    width: double.infinity,
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        colors: [Color(0xFF4A90E2), Color(0xFF8E2DE2)],
-                      ),
-                    ),
-
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                        Text("Shopping card",
-                            style: TextStyle(color: Colors.white)),
-
-                        Spacer(),
-
-                        Text("**** **** **** 3960",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                letterSpacing: 2)),
-
-                        SizedBox(height: 15),
-
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                          children: [
-
-                            /// CARD HOLDER
-                            Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                Text("CARD HOLDER",
-                                    style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 10)),
-                                Text("SATHVIKA REDDY",
-                                    style:
-                                        TextStyle(color: Colors.white)),
-                              ],
-                            ),
-
-                            /// EXPIRES
-                            Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                Text("EXPIRES",
-                                    style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 10)),
-                                Text("10/22",
-                                    style:
-                                        TextStyle(color: Colors.white)),
-                              ],
-                            ),
-
-                            /// CVV
-                            Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                Text("CVV",
-                                    style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 10)),
-                                Text("***",
-                                    style:
-                                        TextStyle(color: Colors.white)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
                     ),
                   ),
+                ),
+              ),
 
-                  SizedBox(height: 15),
+              SizedBox(height: 20),
 
-                  /// DOTS
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      dot(true),
-                      dot(false),
-                      dot(false),
-                    ],
-                  ),
-
-                  SizedBox(height: 20),
-
-                  /// BANK TITLE
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Bank Accounts (1/2)",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Icon(Icons.add_circle_outline, color: Colors.blue),
-                    ],
-                  ),
-
-                  SizedBox(height: 15),
-
-                  /// BANK CARD
-                  Container(
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF1F3F6),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-
-                    child: Column(
-                      children: [
-
-                        Row(
-                          children: [
-                            Icon(Icons.account_balance,
-                                color: Colors.grey),
-                            SizedBox(width: 10),
-                            Text("Bank Name"),
-                          ],
-                        ),
-
-                        SizedBox(height: 5),
-
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("SBI Bank",
-                              style:
-                                  TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-
-                        SizedBox(height: 10),
-
-                        Row(
-                          children: [
-                            Icon(Icons.person, color: Colors.grey),
-                            SizedBox(width: 10),
-                            Text("Account Name"),
-                            Spacer(),
-                            Text("Ac Number"),
-                          ],
-                        ),
-
-                        SizedBox(height: 5),
-
-                        Row(
-                          children: [
-                            Text("Sathvika Reddy",
-                                style:
-                                    TextStyle(fontWeight: FontWeight.bold)),
-                            Spacer(),
-                            Text("4582569585",
-                                style:
-                                    TextStyle(fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+              /// TRANSACTIONS HEADER
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Transactions",
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("See All", style: TextStyle(color: Colors.blue)),
                 ],
               ),
-            ),
-          ],
+
+              SizedBox(height: 10),
+
+              /// TRANSACTIONS LIST
+              transactionItem(
+                  Icons.facebook, "Facebook", "Salary", "+ \$7000", "12:45 PM", Colors.blue),
+
+              transactionItem(
+                  Icons.phone, "Vodafone", "Phone", "- \$58", "10:13 AM", Colors.red),
+
+              transactionItem(
+                  Icons.work, "Upwork", "Freelance", "+ \$975.48", "7 Jun", Colors.green),
+
+              transactionItem(
+                  Icons.shopping_cart, "Amazon", "Shopping", "- \$70", "5 Jun", Colors.orange),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  /// DOT WIDGET
-  Widget dot(bool active) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3),
-      height: 8,
-      width: 8,
-      decoration: BoxDecoration(
-        color: active ? Colors.blue : Colors.grey,
-        shape: BoxShape.circle,
+  /// SIMPLE FUNCTION
+  Widget transactionItem(IconData icon, String title, String subtitle,
+      String amount, String time, Color color) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      margin: EdgeInsets.only(bottom: 10),
+      child: ListTile(
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        leading: Icon(icon, color: color),
+        title: Text(title),
+        subtitle: Text(subtitle),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              amount,
+              style: TextStyle(
+                  color: amount.contains("+")
+                      ? Colors.green
+                      : Colors.red),
+            ),
+            Text(time, style: TextStyle(fontSize: 12)),
+          ],
+        ),
       ),
     );
   }
