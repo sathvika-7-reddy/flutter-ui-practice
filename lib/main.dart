@@ -9,18 +9,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: StatsScreen(),
+      home: TransactionsScreen(),
     );
   }
 }
 
-class StatsScreen extends StatelessWidget {
+class TransactionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F6FA),
       appBar: AppBar(
-        title: Text("Stats"),
+        title: Text("Transactions"),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -30,84 +30,37 @@ class StatsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: SizedBox(
-                  width: 350,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 4,
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("\$13580",
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold)),
-                                Text("Available balance"),
-                                SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Icon(Icons.arrow_upward,
-                                        color: Colors.red, size: 16),
-                                    SizedBox(width: 5),
-                                    Text("Spend"),
-                                  ],
-                                ),
-                                Text("\$3123"),
-                                SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Icon(Icons.arrow_downward,
-                                        color: Colors.green, size: 16),
-                                    SizedBox(width: 5),
-                                    Text("Received"),
-                                  ],
-                                ),
-                                Text("\$4074"),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 110,
-                            width: 110,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.blue.shade100,
-                            ),
-                            child: Center(child: Text("June")),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
+
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Transactions",
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold)),
-                  Text("See All", style: TextStyle(color: Colors.blue)),
+                  filterBox("All", true),
+                  SizedBox(width: 10),
+                  filterBox("Received", false),
+                  SizedBox(width: 10),
+                  filterBox("Spend", false),
                 ],
               ),
+
+              SizedBox(height: 20),
+
+              Text("Today", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+
               SizedBox(height: 10),
-              item(Icons.facebook, "Facebook", "Salary", "+ \$7000", "12:45 PM",
-                  Colors.blue),
-              item(Icons.phone, "Vodafone", "Phone", "- \$58", "10:13 AM",
-                  Colors.red),
-              item(Icons.work, "Upwork", "Freelance", "+ \$975.48", "7 Jun",
-                  Colors.green),
-              item(Icons.shopping_cart, "Amazon", "Shopping", "- \$70", "5 Jun",
-                  Colors.orange),
+
+              item(Icons.fastfood, "Foodpanda", "Meal", "- \$15.85", "10:00 PM", Colors.pink),
+              item(Icons.phone, "Vodafone", "Phone", "- \$58", "04:13 PM", Colors.red),
+              item(Icons.facebook, "Facebook", "Salary", "+ \$7000", "11:45 AM", Colors.blue),
+
+              SizedBox(height: 20),
+
+              Text("Yesterday", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+
+              SizedBox(height: 10),
+
+              item(Icons.local_taxi, "Uber Premier", "Transport", "- \$8.75", "08:30 AM", Colors.black),
+              item(Icons.fastfood, "Uber Eats", "Meal", "- \$25", "01:30 PM", Colors.green),
+              item(Icons.account_balance, "Citibank", "Wire Transfer", "+ \$975.48", "09:39 AM", Colors.blue),
+
             ],
           ),
         ),
@@ -115,17 +68,37 @@ class StatsScreen extends StatelessWidget {
     );
   }
 
-  Widget item(IconData icon, String title, String sub, String amt,
-      String time, Color color) {
+  Widget filterBox(String text, bool active) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: active ? Colors.blue : Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: active ? Colors.white : Colors.black,
+        ),
+      ),
+    );
+  }
+
+  Widget item(IconData icon, String title, String sub, String amt, String time, Color color) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
       margin: EdgeInsets.only(bottom: 10),
       child: ListTile(
-        contentPadding:
-            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        leading: Icon(icon, color: color),
+        leading: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, color: color),
+        ),
         title: Text(title),
         subtitle: Text(sub),
         trailing: Column(
@@ -134,7 +107,9 @@ class StatsScreen extends StatelessWidget {
             Text(
               amt,
               style: TextStyle(
-                  color: amt.contains("+") ? Colors.green : Colors.red),
+                color: amt.contains("+") ? Colors.green : Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Text(time, style: TextStyle(fontSize: 12)),
           ],
